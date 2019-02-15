@@ -49,7 +49,7 @@ function transferProjectToRemote(failed, successful) {
 // creates a temporary folder on the remote server
 function createRemoteTempFolder() {
   return ssh.execCommand(
-    'rm -rf deployment-handson-3 && mkdir deployment-handson-3', {
+    'rm -rf deployment-handson-3 && mkdir deployment-handson-3-temp', {
       cwd: '/home/ubuntu'
   });
 }
@@ -65,7 +65,7 @@ function stopRemoteServices() {
 // updates the project source on the server
 function updateRemoteApp() {
   return ssh.execCommand(
-    'cp -r deployment-handson-3/* deployment-handson-3/ && rm -rf deployment-handson-3', {
+    'cp -r deployment-handson-3/* deployment-handson-3/ && rm -rf deployment-handson-3-temp', {
       cwd: '/home/ubuntu'
   });
 }
