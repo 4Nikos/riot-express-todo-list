@@ -23,7 +23,7 @@ function installPM2() {
 function transferProjectToRemote(failed, successful) {
   return ssh.putDirectory(
     '../deployment-handson-3',
-    '/home/ubuntu/deployment-handson-3',
+    '/home/ubuntu/deployment-handson-3-temp',
     {
       recursive: true,
       concurrency: 1,
@@ -49,7 +49,7 @@ function transferProjectToRemote(failed, successful) {
 // creates a temporary folder on the remote server
 function createRemoteTempFolder() {
   return ssh.execCommand(
-    'rm -rf deployment-handson-3 && mkdir deployment-handson-3-temp', {
+    'rm -rf deployment-handson-3-temp && mkdir deployment-handson-3-temp', {
       cwd: '/home/ubuntu'
   });
 }
@@ -65,7 +65,7 @@ function stopRemoteServices() {
 // updates the project source on the server
 function updateRemoteApp() {
   return ssh.execCommand(
-    'cp -r deployment-handson-3/* deployment-handson-3/ && rm -rf deployment-handson-3-temp', {
+    'cp -r deployment-handson-3-temp/* deployment-handson-3/ && rm -rf deployment-handson-3-temp', {
       cwd: '/home/ubuntu'
   });
 }
