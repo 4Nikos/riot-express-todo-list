@@ -22,8 +22,8 @@ function installPM2() {
 // transfers local project to the remote server
 function transferProjectToRemote(failed, successful) {
   return ssh.putDirectory(
-    '../deployment-handson-3',
-    '/home/ubuntu/deployment-handson-3-temp',
+    '../riot-express-todo-list',
+    '/home/ubuntu/riot-express-todo-list-temp',
     {
       recursive: true,
       concurrency: 1,
@@ -49,7 +49,7 @@ function transferProjectToRemote(failed, successful) {
 // creates a temporary folder on the remote server
 function createRemoteTempFolder() {
   return ssh.execCommand(
-    'rm -rf deployment-handson-3-temp && mkdir deployment-handson-3-temp', {
+    'rm -rf riot-express-todo-list-temp && mkdir riot-express-todo-list-temp', {
       cwd: '/home/ubuntu'
   });
 }
@@ -65,7 +65,7 @@ function stopRemoteServices() {
 // updates the project source on the server
 function updateRemoteApp() {
   return ssh.execCommand(
-    'cp -r deployment-handson-3-temp/* deployment-handson-3/ && rm -rf deployment-handson-3-temp', {
+    'cp -r riot-express-todo-list-temp/* riot-express-todo-list/ && rm -rf riot-express-todo-list-temp', {
       cwd: '/home/ubuntu'
   });
 }
@@ -73,7 +73,7 @@ function updateRemoteApp() {
 // restart mongodb and node services on the remote server
 function restartRemoteServices() {
   return ssh.execCommand(
-    'cd deployment-handson-3 && sudo service mongod start && pm2 start app.js', {
+    'cd riot-express-todo-list && sudo service mongod start && pm2 start app.js', {
       cwd: '/home/ubuntu'
   });
 }
@@ -95,7 +95,7 @@ function sshConnect() {
       return installPM2();
     })
     .then(function() {
-      console.log('Creating `deployment-handson-3` folder.');
+      console.log('Creating `riot-express-todo-list` folder.');
       return createRemoteTempFolder();
     })
     .then(function(result) {
